@@ -24,3 +24,4 @@
 - [화천 범용선반 안전커버세트 안내](https://psk5147-bot.github.io/hwacheon-parts/guide-safety-cover.html)
 - [화천 범용선반 부품 교체 팁](https://psk5147-bot.github.io/hwacheon-parts/guide-lathe-tips.html)
 - [기술 가이드 모음](https://psk5147-bot.github.io/hwacheon-parts/guides.html)
+- [화천 범용밀링 헤드 판스프링 안내](https://psk5147-bot.github.io/hwacheon-parts/guide-milling-tips.html)
