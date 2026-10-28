@@ -1,0 +1,31 @@
+name: update-site
+on:
+  schedule:
+    - cron: '0 18 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build pages from store product list
+        run: node build.mjs
+      - name: Commit and push only when products changed
+        run: |
+          if git diff --quiet -I'20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]'; then
+            echo "no product changes"
+            git checkout -- .
+            exit 0
+          fi
+          git config user.name "hwacheon-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A
+          git commit -m "auto update from store product list"
+          git push
+          sleep 60
+          curl -s -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/json; charset=utf-8' -d '{"host":"psk5147-bot.github.io","key":"890d3caf6d07d602bddb79b6561d50bd","keyLocation":"https://psk5147-bot.github.io/890d3caf6d07d602bddb79b6561d50bd.txt","urlList":["https://psk5147-bot.github.io/hwacheon-parts/used-machines.html","https://psk5147-bot.github.io/hwacheon-parts/lathe-parts.html","https://psk5147-bot.github.io/hwacheon-parts/milling-parts.html","https://psk5147-bot.github.io/hwacheon-parts/accessories.html","https://psk5147-bot.github.io/hwacheon-parts/"]}' || true
