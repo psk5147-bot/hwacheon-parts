@@ -11,3 +11,9 @@
 - [중고 공작기계](https://psk5147-bot.github.io/hwacheon-parts/used-machines.html): 중고 머시닝센터, 선반, 밀링 판매·매입
 - [주변기기](https://psk5147-bot.github.io/hwacheon-parts/accessories.html)
 - [자주 묻는 질문](https://psk5147-bot.github.io/hwacheon-parts/faq.html)
+- [주문 가이드](https://psk5147-bot.github.io/hwacheon-parts/guide.html)
+- [화천 범용선반 HL380 부품](https://psk5147-bot.github.io/hwacheon-parts/model-hl380.html)
+- [화천 범용선반 HL460 부품](https://psk5147-bot.github.io/hwacheon-parts/model-hl460.html)
+- [화천 범용선반 HL580 부품](https://psk5147-bot.github.io/hwacheon-parts/model-hl580.html)
+- [화천 범용선반 HL720 부품](https://psk5147-bot.github.io/hwacheon-parts/model-hl720.html)
+- [화천 범용선반 HL950 부품](https://psk5147-bot.github.io/hwacheon-parts/model-hl950.html)
