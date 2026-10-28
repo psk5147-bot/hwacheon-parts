@@ -14,7 +14,11 @@ const DATE = kst.toISOString().slice(0, 10);
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const won = p => (p < 1000 ? '가격 문의' : p.toLocaleString('ko-KR') + '원');
 const slug = s => s.replace(/[^\w가-힣]+/g, '-').replace(/^-|-$/g, '');
-const wr = (f, t) => fs.writeFile(`${OUT}/${f}`, t);
+const norm = t => String(t).replace(/20\d\d-\d\d-\d\d/g, "D");
+const wr = async (f, t) => {
+  try { const old = await fs.readFile(`${OUT}/${f}`, "utf8"); if (norm(old) === norm(t)) return; } catch { /* 새 파일 */ }
+  await fs.writeFile(`${OUT}/${f}`, t);
+};
 
 // ---------- 데이터 ----------
 async function load() {
