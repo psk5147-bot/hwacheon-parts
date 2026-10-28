@@ -17,3 +17,4 @@
 - [화천 범용선반 HL580 부품](https://psk5147-bot.github.io/hwacheon-parts/model-hl580.html)
 - [화천 범용선반 HL720 부품](https://psk5147-bot.github.io/hwacheon-parts/model-hl720.html)
 - [화천 범용선반 HL950 부품](https://psk5147-bot.github.io/hwacheon-parts/model-hl950.html)
+- [배송·반품·교환 안내](https://psk5147-bot.github.io/hwacheon-parts/returns.html)
