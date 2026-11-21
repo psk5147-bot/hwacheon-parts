@@ -234,7 +234,7 @@ for (const [bn, re] of brandGroups) {
 // 매입 안내
 await wr('sell-machines.html', page({ path: 'sell-machines.html', title: '중고 공작기계 매입 | 머시닝센터 CNC선반 밀링 주변기기 매입 문의 - 화천이티씨', desc: '중고 머시닝센터, CNC선반, 범용선반·밀링, 바이스·콤프레샤·툴홀더 등 공작기계와 주변기기 매입 문의. 기종·연식·사진을 보내 주시면 견적을 안내합니다. 041-552-5147.',
   h1: '중고 공작기계 매입 문의', crumbs: [['매입 문의', 'sell-machines.html']],
-  body: `<p class="lead">사용 중이거나 유휴 상태인 중고 공작기계를 매입합니다. 기종, 연식, 현재 상태와 사진을 보내 주시면 매입 견적을 안내합니다. 가격은 사진과 정보를 보고 안내드리며, 사전 연락 없이 거래를 진행하지 않습니다.</p><h2>매입 문의 품목</h2><ul><li>중고 머시닝센터(수직·수평), CNC선반, 복합기</li><li>중고 범용선반, 범용밀링, 보링기, 라우터</li><li>주변기기: 바이스, 콤프레샤, BT40·BT50 툴홀더와 공구, 보루방(드릴프레스), 집진기, 다운트랜스, 칩버켓 등</li><li>기계 본체가 아니어도 일괄 정리하실 때는 품목 목록과 사진을 함께 보내 주세요.</li></ul><h2>문의 시 알려 주실 것</h2><ul><li>제조사와 모델명, 호기, 제조연도(명판 사진)</li><li>컨트롤러(예: FANUC 0i-MC), 주요 옵션</li><li>현재 가동 여부와 상태, 소재지</li><li>전체 사진과 명판 사진, 가능하면 가동 영상</li></ul><h2>문의처</h2><div class="box"><b>${TEL}</b><br>충남 아산시 배방읍 휴대길 167, 101동 · 이메일 mohoro@naver.com</div><p>판매 중인 중고기계는 <a href="used-machines.html">중고 공작기계 판매 목록</a>에서 볼 수 있습니다.</p>` }));
+  body: `<p class="lead">사용 중이거나 유휴 상태인 중고 공작기계를 매입합니다. 기종, 연식, 현재 상태와 사진을 보내 주시면 매입 견적을 안내합니다.</p><h2>매입 문의 품목</h2><ul><li>중고 머시닝센터(수직·수평), CNC선반, 복합기</li><li>중고 범용선반, 범용밀링, 보링기, 라우터</li><li>주변기기: 바이스, 콤프레샤, BT40·BT50 툴홀더와 공구, 보루방(드릴프레스), 집진기, 다운트랜스, 칩버켓 등</li><li>기계 본체가 아니어도 일괄 정리하실 때는 품목 목록과 사진을 함께 보내 주세요.</li></ul><h2>문의 시 알려 주실 것</h2><ul><li>제조사와 모델명, 호기, 제조연도(명판 사진)</li><li>컨트롤러(예: FANUC 0i-MC), 주요 옵션</li><li>현재 가동 여부와 상태, 소재지</li><li>전체 사진과 명판 사진, 가능하면 가동 영상</li></ul><h2>문의처</h2><div class="box"><b>${TEL}</b><br>충남 아산시 배방읍 휴대길 167, 101동 · 이메일 mohoro@naver.com</div><p>판매 중인 중고기계는 <a href="used-machines.html">중고 공작기계 판매 목록</a>에서 볼 수 있습니다.</p>` }));
 // 전체 상품 카탈로그
 const byKind = k => productPages.filter(p => p.kind === k).sort((a, b) => a.title.localeCompare(b.title, 'ko'));
 await wr('catalog.html', page({ path: 'catalog.html', title: `전체 상품 목록 ${itemsAll.length}종 | 화천이티씨`, desc: `화천이티씨 판매 상품 전체 ${itemsAll.length}종: 중고 공작기계, 화천 범용선반·밀링 부품, 주변기기.`, h1: `전체 상품 목록 (${itemsAll.length}종)`, crumbs: [['전체 상품', 'catalog.html']],
@@ -246,6 +246,7 @@ for (const f of ['faq.html', 'guide.html', 'guides.html', 'returns.html', 'guide
 }
 
 // 구글 판매자 센터 피드 (전체 상품: 신품 부품 + 중고기계 + 주변기기)
+const cleanDesc = t => String(t || '').replace(/(?:(?:가격|금액|개당)\s*[:：]?\s*)?[\d,]+\s*(?:만원|원)?\s*\(?\s*vat\s*별도가?\s*\)?/gi, ' ').replace(/(문의[:：]?\s*)?화천이티씨\s*041-552-5147\s*\/\s*모바일\s*010-5424-6147/g, ' ').replace(/\s+/g, ' ').trim();
 const clean = s => String(s).replace(/[\t\r\n]+/g, ' ').trim();
 const hdr = ['id', 'title', 'description', 'link', 'image_link', 'additional_image_link', 'availability', 'price', 'condition', 'brand', 'mpn', 'identifier_exists', 'product_type', 'product_highlight', 'custom_label_0'];
 const feedRows = [];
@@ -257,8 +258,8 @@ for (const i of itemsAll) {
   const yr = e.year || (i.name.match(/((?:19|20)\d\d)년/) || [])[1];
   const t = clean(i.title).slice(0, 150);
   const lead = c === 'used' ? `${t}. 중고${yr ? ' ' + yr + '년식' : ''} 공작기계·장비입니다.` : k === 'lathe' ? `${t}. 화천기계 범용선반 A/S 부품입니다.` : k === 'mill' ? `${t}. 화천기계 범용밀링 A/S 부품입니다.` : `${t}. 공작기계 주변기기입니다.`;
-  const d = clean(`${lead} ${(e.text || '').replace(/\s+/g, ' ').slice(0, 600)} 문의 ${TEL}`).slice(0, 4900);
-  const hl = [c === 'used' ? `중고${yr ? ' ' + yr + '년식' : ''}` : '신품', ...(e.specs || []).slice(0, 4).map(([a, b]) => `${a}: ${b}`.slice(0, 140)), '충남 아산 화천이티씨 041-552-5147'].slice(0, 6);
+  const d = clean(`${lead} ${cleanDesc(e.text).slice(0, 600)} 문의 ${TEL}`).slice(0, 4900);
+  const hl = [c === 'used' ? `중고${yr ? ' ' + yr + '년식' : ''}` : '신품', ...(e.specs || []).filter(([a, b]) => !/가격|금액|vat/i.test(a + b)).slice(0, 4).map(([a, b]) => `${a}: ${b}`.slice(0, 140)), '충남 아산 화천이티씨 041-552-5147'].slice(0, 6);
   const ptype = c === 'used' ? `중고 공작기계 > ${i.group}` : k === 'acc' ? `공작기계 주변기기 > ${i.group}` : `공작기계 부품 > ${k === 'lathe' ? '범용선반' : '범용밀링'}`;
   feedRows.push([`hc-${i.id}`, t, d, `${BASE}p-${i.id}.html`, imgsF[0], imgsF.slice(1, 6).join(','), 'in_stock', `${i.price} KRW`, c, brand, model || '', 'no', ptype, hl.join('|'), c === 'used' ? 'used' : k]);
 }
