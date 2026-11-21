@@ -33,6 +33,8 @@ async function load() {
 
 let images = {};
 try { images = JSON.parse(await fs.readFile(`${OUT}/images.json`, 'utf8')); } catch { images = {}; }
+let enrich = {};
+try { for (const e of JSON.parse(await fs.readFile(`${OUT}/data/products.json`, 'utf8'))) enrich[e.id] = e; } catch { enrich = {}; }
 
 async function ensureImage(id, url) {
   if (images[id]) return;
@@ -79,7 +81,7 @@ const orgLD = { '@context': 'https://schema.org', '@type': 'LocalBusiness', name
   description: '화천기계 범용선반·범용밀링 A/S 부품 판매, 중고 공작기계 매입·판매, 공작기계 수리', url: BASE, telephone: '+82-41-552-5147',
   address: { '@type': 'PostalAddress', streetAddress: '휴대길 167, 101동', addressLocality: '아산시 배방읍', addressRegion: '충청남도', addressCountry: 'KR' }, sameAs: [STORE], areaServed: 'KR' };
 const ld = o => `<script type="application/ld+json">${JSON.stringify(o)}</script>`;
-const nav = `<header class="top"><div class="in"><a class="brand" href="index.html">화천이티씨</a><a href="lathe-parts.html">범용선반 부품</a><a href="milling-parts.html">범용밀링 부품</a><a href="models.html">모델별 부품</a><a href="used-machines.html">중고기계</a><a href="accessories.html">주변기기</a><a href="faq.html">자주 묻는 질문</a></div></header>`;
+const nav = `<header class="top"><div class="in"><a class="brand" href="index.html">화천이티씨</a><a href="lathe-parts.html">범용선반 부품</a><a href="milling-parts.html">범용밀링 부품</a><a href="models.html">모델별 부품</a><a href="used-machines.html">중고기계</a><a href="accessories.html">주변기기</a><a href="sell-machines.html">매입 문의</a><a href="catalog.html">전체 상품</a><a href="faq.html">자주 묻는 질문</a></div></header>`;
 const foot = `<footer><div class="in"><b>화천이티씨</b> ((주)화천기계 신품판매 / 중고공작기계 매입·판매 / 부품·주변기기 판매 / 공작기계 수리)<br>${TEL}<br>충남 아산시 배방읍 휴대길 167, 101동 · 사업자등록번호 483-26-00262<br><a href="returns.html">배송·반품 안내</a> · <a href="${STORE}">스마트스토어 바로가기</a> · 판매가는 부가세 포함 스마트스토어 표시가이며 ${DATE} 기준입니다. 가격과 재고는 스마트스토어에서 최종 확인해 주세요.</div></footer>`;
 
 function page({ path, title, desc, h1, body, extraLD = [], crumbs = [] }) {
@@ -88,7 +90,7 @@ function page({ path, title, desc, h1, body, extraLD = [], crumbs = [] }) {
   return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${url}"><meta property="og:type" content="website"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:url" content="${url}"><link rel="stylesheet" href="style.css">${ld(orgLD)}${ld(bc)}${extraLD.map(ld).join('')}</head><body>${nav}<main><div class="crumb">${['<a href="index.html">화천이티씨</a>', ...crumbs.map(c => esc(c[0]))].join(' › ')}</div><h1>${esc(h1)}</h1>${body}<div class="cta"><b>필요한 부품이 목록에 없거나 모델이 헷갈리세요?</b><br>기계 명판(모델명·호기)과 필요한 부품 사진을 보내 주시면 확인해 안내드립니다.<br><b>${TEL}</b> · <a href="${STORE}">스마트스토어에서 문의</a></div></main>${foot}</body></html>`;
 }
 const priceText = i => i.id === '9695469065' ? '1,067,000원부터 (기종별 상이)' : won(i.price);
-const card = i => `<article class="p" id="p${i.id}">${images[i.id] ? `<img loading="lazy" src="${esc(images[i.id])}" alt="${esc(i.title)}">` : ''}<div class="b"><h3>${esc(i.title)}</h3><div class="price">${priceText(i)}</div><a class="btn" href="${esc(i.url)}" rel="noopener">스마트스토어에서 보기</a></div></article>`;
+const card = i => `<article class="p" id="p${i.id}">${images[i.id] ? `<img loading="lazy" src="${esc(images[i.id])}" alt="${esc(i.title)}">` : ''}<div class="b"><h3>${esc(i.title)}</h3><div class="price">${priceText(i)}</div><a class="btn" href="p-${i.id}.html">상세 보기</a> <a class="btn alt" href="${esc(i.url)}" rel="noopener">스마트스토어에서 보기</a></div></article>`;
 const itemLD = list => ({ '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: list.map((i, k) => ({ '@type': 'ListItem', position: k + 1, item: { '@type': 'Product', name: i.title, ...(images[i.id] ? { image: images[i.id] } : {}), brand: { '@type': 'Brand', name: /화천/.test(i.name) ? '화천기계 호환' : '화천이티씨' }, url: i.url, offers: { '@type': 'Offer', priceCurrency: 'KRW', ...(i.price >= 1000 ? { price: String(i.price) } : {}), availability: 'https://schema.org/InStock', url: i.url, seller: { '@type': 'Organization', name: '화천이티씨' } } } })) });
 function grouped(list, order) {
   const by = {}; list.forEach(i => (by[i.group] = by[i.group] || []).push(i));
@@ -101,7 +103,7 @@ const uniq = a => [...new Map(a.map(i => [i.id, i])).values()];
 const rows = await load();
 if (rows.length < 50) throw new Error('상품 수가 너무 적어 중단: ' + rows.length);
 const { items, latheItems, both, millItems, usedItems, accItems } = classify(rows);
-for (const i of items) await ensureImage(i.id, i.url);
+for (const i of items) { if (!images[i.id] && enrich[i.id]?.images?.length) images[i.id] = enrich[i.id].images[0] + '?type=m510'; else await ensureImage(i.id, i.url); }
 await wr('images.json', JSON.stringify(images));
 
 const latheAll = uniq([...latheItems, ...both]), millAll = uniq([...millItems, ...both]);
@@ -156,22 +158,122 @@ const partCount = uniq([...latheAll, ...millAll]).length;
 const home = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>화천기계 범용선반·범용밀링 부품 전문 | 중고 공작기계 매입·판매 - 화천이티씨</title><meta name="description" content="화천기계 범용선반·범용밀링 A/S 부품(브레이크 마스터실린더, 방진구, 체인지기어, 공구대 등), 중고 머시닝센터·선반·밀링 판매·매입, 공작기계 수리. 충남 아산 화천이티씨 041-552-5147."><link rel="canonical" href="${BASE}"><meta property="og:type" content="website"><meta property="og:title" content="화천기계 범용선반·범용밀링 부품 전문 - 화천이티씨"><meta property="og:description" content="화천 범용선반·범용밀링 A/S 부품, 중고 공작기계 판매·매입, 수리"><meta property="og:url" content="${BASE}"><link rel="stylesheet" href="style.css">${ld(orgLD)}${ld({ '@context': 'https://schema.org', '@type': 'WebSite', name: '화천이티씨', url: BASE })}</head><body>${nav}<main><h1>화천 범용선반·범용밀링 A/S 부품 전문, 화천이티씨</h1><p class="lead">화천기계 범용선반(HL380·HL460·HL580·HL720·HL950 등)과 범용밀링에 쓰는 A/S 부품 ${partCount}종, 중고 머시닝센터·선반·밀링 판매와 매입, 공작기계 수리를 하는 충남 아산의 화천이티씨입니다. 필요한 부품 모델과 증상을 알려 주시면 확인해 안내드립니다.</p><div class="cta"><b>${TEL}</b><br>충남 아산시 배방읍 휴대길 167, 101동 · <a href="${STORE}">스마트스토어에서 주문하기</a></div><h2>무엇을 찾으세요?</h2><div class="cards"><a class="card" href="lathe-parts.html"><b>화천 범용선반 부품</b><span>브레이크·마스터실린더, 방진구, 체인지기어, 공구대, 명판 ${latheAll.length}종</span></a><a class="card" href="milling-parts.html"><b>화천 범용밀링 부품</b><span>헤드·퀼, 모터, 핸들, 브레이크, 기어 ${millAll.length}종</span></a><a class="card" href="models.html"><b>모델별 부품 (HL380~HL950)</b><span>모델명으로 부품 찾기</span></a><a class="card" href="used-machines.html"><b>중고 공작기계 판매·매입</b><span>중고 머시닝센터, 선반, 밀링 ${usedItems.length}종</span></a><a class="card" href="accessories.html"><b>공작기계 주변기기</b><span>오일스키머, 집진기, 칩버켓, 터치프로브 등 ${accItems.length}종</span></a><a class="card" href="faq.html"><b>자주 묻는 질문</b><span>구매처, 모델 확인, 견적·세금계산서</span></a></div><h2>모델·주문 안내</h2><div class="box">${models.map(x => `<a href="model-${x.toLowerCase()}.html">${x} 부품</a>`).join(' · ')} · <a href="guide.html">주문 가이드</a></div><h2>기술 가이드</h2><div class="box"><a href="guides.html">브레이크 교체·방진구·나사가공 부품·안전커버 가이드 보기</a></div><h2>자주 찾는 부품</h2><div class="grid">${pop.map(card).join('')}</div><h2>이런 분께 도움이 됩니다</h2><div class="box">화천 범용선반·범용밀링을 사용하는 공장, 학교 실습장, 수리업체에서 고장 난 부품을 빠르게 교체해야 할 때 모델과 부품 사진만 보내 주시면 맞는 부품을 확인해 드립니다. 사업자 거래는 견적서와 세금계산서 발행을 문의해 주세요.</div></main>${foot}</body></html>`;
 await wr('index.html', home);
 
-// 구글 판매자 센터 피드 (신품 부품만, 이미지 있는 것만)
-const feedItems = uniq([...latheAll, ...millAll]).filter(i => i.price >= 1000 && images[i.id]);
+
+// ================= v2: 상품별 페이지, 허브, 피드, 사이트맵 =================
+const cond = i => (enrich[i.id]?.condition) || (i.used ? 'used' : 'new');
+const E = i => enrich[i.id] || {};
+const exVat = p => Math.round(p / 1.1 / 1000) * 1000;
+const kindOf = i => usedSet.has(i.id) ? 'used' : (latheSet.has(i.id) ? 'lathe' : (millSet.has(i.id) ? 'mill' : 'acc'));
+const usedSet = new Set(usedItems.map(i => i.id)), latheSet = new Set(latheAll.map(i => i.id)), millSet = new Set(millAll.map(i => i.id));
+const itemsAll = uniq([...usedItems, ...latheAll, ...millAll, ...accItems]);
+const groupOf = {}; [...usedItems, ...latheAll, ...millAll, ...accItems].forEach(i => { groupOf[i.id] = groupOf[i.id] || i.group; });
+const guideOf = n => /브레이크|마스터실린더|캘리퍼/.test(n) ? ['guide-brake.html', '브레이크 교체 가이드'] : /방진구/.test(n) ? ['guide-steady-rest.html', '방진구 선택 가이드']
+  : /체인지기어|하프너트|리드스크류|스크류/.test(n) ? ['guide-thread-parts.html', '나사가공 부품 가이드'] : /안전커버|칩커버/.test(n) ? ['guide-safety-cover.html', '안전커버 가이드'] : null;
+const brandOf = i => (E(i).brand || (/두산/.test(i.name) ? '두산' : /화천/.test(i.name) ? '화천기계' : /위아|WIA/.test(i.name) ? '위아' : '')) || '';
+const modelOfItem = i => { const sp = E(i).specs || []; const m = sp.find(([k]) => /^모델명$|^모델$/.test(k)); return m ? m[1] : null; };
+const bodyText = t => {
+  const out = []; let list = [];
+  const flush = () => { if (list.length) { out.push(`<ul>${list.join('')}</ul>`); list = []; } };
+  for (const raw of String(t || '').split('\n')) {
+    const l = raw.trim(); if (!l) continue;
+    if (/^■/.test(l)) { flush(); out.push(`<h3>${esc(l.replace(/^■\s*/, ''))}</h3>`); }
+    else if (/^[-·•]\s+/.test(l) || /^\d+\.\s+/.test(l)) list.push(`<li>${esc(l.replace(/^([-·•]|\d+\.)\s+/, ''))}</li>`);
+    else { flush(); out.push(`<p>${esc(l)}</p>`); }
+  }
+  flush(); return out.join('');
+};
+const kindLabel = { used: '중고 공작기계·장비', lathe: '화천 범용선반 부품', mill: '화천 범용밀링 부품', acc: '공작기계 주변기기' };
+const kindPage = { used: 'used-machines.html', lathe: 'lathe-parts.html', mill: 'milling-parts.html', acc: 'accessories.html' };
+const today = new Date(kst.getTime()); const until = new Date(today.getTime() + 30 * 86400000).toISOString().slice(0, 10);
+const productPages = [];
+
+for (const i of itemsAll) {
+  const e = E(i), k = kindOf(i), c = cond(i), brand = brandOf(i), model = modelOfItem(i);
+  const imgs = (e.images && e.images.length ? e.images : (images[i.id] ? [images[i.id].replace(/\?type=.*$/, '')] : [])).slice(0, 8);
+  const priced = i.price >= 1000;
+  const sp = (e.specs || []).filter(([a]) => !/소재지|현재 상태|상태/.test(a)).slice(0, 10);
+  const yr = e.year || (i.name.match(/((?:19|20)\d\d)년/) || [])[1];
+  const place = ((e.text || '').match(/(?:장비 소재지|소재지|위치)\s*[:：]?\s*([가-힣 ]{2,14})/) || [])[1];
+  const gd = guideOf(i.name);
+  const kindTxt = c === 'used' ? '중고' : '신품';
+  const descParts = [`${i.title}`, c === 'used' ? `중고${yr ? ' ' + yr + '년식' : ''}` : '신품 A/S·판매', place ? `소재지 ${place.trim()}` : '', priced ? `판매가 ${won(i.price)}(부가세 포함)` : '가격 문의', '문의 화천이티씨 041-552-5147'].filter(Boolean);
+  let desc = descParts.join(' · '); if (desc.length > 158) desc = desc.slice(0, 157) + '…';
+  const rel = itemsAll.filter(o => o.id !== i.id && kindOf(o) === k && groupOf[o.id] === groupOf[i.id]).slice(0, 6);
+  const relBlock = rel.length ? `<h2>같은 종류 상품</h2><ul class="rel">${rel.map(o => `<li><a href="p-${o.id}.html">${esc(o.title)}</a> · ${priceText(o)}</li>`).join('')}</ul>` : '';
+  const specRows = [...(brand ? [['브랜드·제조사', brand]] : []), ...(yr && c === 'used' ? [['연식', yr + '년']] : []), ['상태', c === 'used' ? '중고' : '신품'], ...(place ? [['소재지', place.trim()]] : []), ...sp.filter(([a]) => !/제조사|제조일자|제조연도/.test(a))];
+  const specTable = `<table class="spec"><tbody>${specRows.map(([a, b]) => `<tr><th>${esc(a)}</th><td>${esc(b)}</td></tr>`).join('')}</tbody></table>`;
+  const fallback = c === 'used' ? `<p>${esc(i.title)} 판매 안내입니다. 연식·사양·현재 상태와 시운전 가능 여부는 문의해 주세요. 중고기계는 착불배송 또는 직접 방문(상차도) 조건입니다.</p>`
+    : k === 'lathe' || k === 'mill' ? `<p>${esc(i.title)}입니다. 화천기계 ${k === 'lathe' ? '범용선반' : '범용밀링'}용 A/S 부품이며 모델과 호기에 맞는지 기계 명판 사진으로 확인해 드립니다.</p>` : `<p>${esc(i.title)} 판매 안내입니다. 사양과 설치 조건은 문의해 주세요.</p>`;
+  const detail = (e.text && e.text.length > 80) ? bodyText(e.text) : fallback;
+  const ldp = { '@context': 'https://schema.org', '@type': 'Product', name: i.title, sku: i.id, ...(model ? { mpn: model } : {}), ...(imgs.length ? { image: imgs } : {}), description: desc,
+    ...(brand ? { brand: { '@type': 'Brand', name: brand } } : {}), itemCondition: c === 'used' ? 'https://schema.org/UsedCondition' : 'https://schema.org/NewCondition', category: kindLabel[k],
+    ...(priced ? { offers: { '@type': 'Offer', url: `${BASE}p-${i.id}.html`, priceCurrency: 'KRW', price: String(i.price), priceValidUntil: until, availability: 'https://schema.org/InStock', itemCondition: c === 'used' ? 'https://schema.org/UsedCondition' : 'https://schema.org/NewCondition', seller: { '@type': 'Organization', name: '화천이티씨' } } } : {}) };
+  const html = page({ path: `p-${i.id}.html`, title: `${i.title}${c === 'used' ? ' 중고' : ''} | 화천이티씨`.slice(0, 90), desc, h1: i.title, crumbs: [[kindLabel[k], kindPage[k]], [i.title, `p-${i.id}.html`]], extraLD: [ldp],
+    body: `<div class="pd"><div class="gal">${imgs.map((u, n) => `<img ${n ? 'loading="lazy" ' : ''}src="${esc(u)}?type=w860" alt="${esc(i.title)}${n ? ' ' + (n + 1) : ''}">`).join('')}</div><div class="info"><div class="price">${priceText(i)}${priced ? ' <small>부가세 포함 판매가(부가세 별도 약 ' + won(exVat(i.price)) + ')</small>' : ''}</div><ul class="facts"><li>상태: ${kindTxt}</li>${yr && c === 'used' ? `<li>연식: ${yr}년</li>` : ''}${place ? `<li>소재지: ${esc(place.trim())}</li>` : ''}<li>판매: 스마트스토어 · 전화 문의</li></ul><p class="act"><a class="btn buy" href="${esc(i.url)}" rel="noopener">스마트스토어에서 구매하기</a> <a class="btn tel" href="tel:0415525147">전화 문의 041-552-5147</a></p></div></div><h2>상품 정보</h2>${specTable}<h2>상세 설명</h2><div class="desc">${detail}</div>${gd ? `<h2>함께 보면 좋은 가이드</h2><p><a href="${gd[0]}">${gd[1]}</a></p>` : ''}${relBlock}` });
+  await wr(`p-${i.id}.html`, html);
+  productPages.push({ id: i.id, title: i.title, kind: k, cond: c, price: i.price, brand, group: groupOf[i.id] });
+}
+
+// 허브 페이지: 중고 머시닝센터 / 선반 / 밀링·보링 / 브랜드별 / 전체 카탈로그
+const usedBy = g => usedItems.filter(i => i.group === g);
+const hubPage = (path, h1, title, desc, list, lead, extra = '') => page({ path, title, desc, h1, crumbs: [['중고기계', 'used-machines.html'], [h1, path]], extraLD: [itemLD(list)],
+  body: `<p class="lead">${lead}</p><div class="grid">${[...list].sort((a, b) => a.price - b.price).map(card).join('')}</div>${extra}` });
+const mc = usedBy('머시닝센터'), lt = usedBy('선반'), mb = usedBy('밀링·보링·기타 가공기');
+await wr('used-machining-centers.html', hubPage('used-machining-centers.html', '중고 머시닝센터', `중고 머시닝센터 판매 ${mc.length}대 | 두산·화천·위아·유지인트 - 화천이티씨`, `중고 머시닝센터(두산 VM·Mynx, 화천 VESTA·SIRIUS·ECOMIL, 위아 VX500 등) ${mc.length}대. 연식, 호기, 가격, 소재지.`, mc,
+  `중고 머시닝센터 ${mc.length}대 목록입니다(${DATE} 기준, 매일 자동 갱신). 호기는 모델명 숫자가 아니라 X축 이송거리 기준입니다(5호기 약 1,000mm, 6.5호기 약 1,300mm, 8.5호기 약 2,000mm). 매물은 한 대씩이라 판매 완료된 것은 목록에서 빠집니다. 중고기계는 착불배송 또는 직접 방문(상차도) 조건입니다.`));
+await wr('used-lathes.html', hubPage('used-lathes.html', '중고 선반 (CNC선반·범용선반)', `중고 선반 판매 ${lt.length}대 | CNC선반 범용선반 - 화천이티씨`, `중고 CNC선반과 범용선반(화천 HL460·SMART, 통일 TIPL-4, 지오엠티 NARA 등) ${lt.length}대 판매.`, lt,
+  `중고 CNC선반과 범용선반 ${lt.length}대 목록입니다(${DATE} 기준). 연식, 방진구·디지털스케일 등 포함 구성, 소재지는 각 상품 페이지에서 확인하세요.`));
+await wr('used-milling.html', hubPage('used-milling.html', '중고 밀링·보링·기타 가공기', `중고 밀링 판매 ${mb.length}대 | 범용밀링 복합밀링 보링 라우터 - 화천이티씨`, `중고 범용밀링, 복합밀링, 베드밀링, 수평 보링기, CNC 라우터 등 ${mb.length}대 판매.`, mb,
+  `중고 밀링, 보링기, 라우터 등 ${mb.length}대 목록입니다(${DATE} 기준).`));
+const brandGroups = [['두산', /두산|DOOSAN|Mynx|VM\d/i], ['화천기계', /화천|HWACHEON|VESTA|SIRIUS|ECOMIL|CUTEX|HMT/i], ['위아', /위아|WIA/i]];
+for (const [bn, re] of brandGroups) {
+  const list = usedItems.filter(i => re.test(i.name)); if (list.length < 2) continue;
+  const slugb = bn === '두산' ? 'doosan' : bn === '위아' ? 'wia' : 'hwacheon';
+  await wr(`used-${slugb}.html`, hubPage(`used-${slugb}.html`, `${bn} 중고 공작기계`, `${bn} 중고 머시닝센터·선반·밀링 ${list.length}대 | 화천이티씨`, `${bn} 중고 공작기계 ${list.length}대: 연식, 사양, 가격, 소재지.`, list, `${bn} 중고 공작기계 ${list.length}대 목록입니다(${DATE} 기준, 매일 자동 갱신).`));
+}
+// 매입 안내
+await wr('sell-machines.html', page({ path: 'sell-machines.html', title: '중고 공작기계 매입 | 머시닝센터 CNC선반 밀링 주변기기 매입 문의 - 화천이티씨', desc: '중고 머시닝센터, CNC선반, 범용선반·밀링, 바이스·콤프레샤·툴홀더 등 공작기계와 주변기기 매입 문의. 기종·연식·사진을 보내 주시면 견적을 안내합니다. 041-552-5147.',
+  h1: '중고 공작기계 매입 문의', crumbs: [['매입 문의', 'sell-machines.html']],
+  body: `<p class="lead">사용 중이거나 유휴 상태인 중고 공작기계를 매입합니다. 기종, 연식, 현재 상태와 사진을 보내 주시면 매입 견적을 안내합니다. 가격은 사진과 정보를 보고 안내드리며, 사전 연락 없이 거래를 진행하지 않습니다.</p><h2>매입 문의 품목</h2><ul><li>중고 머시닝센터(수직·수평), CNC선반, 복합기</li><li>중고 범용선반, 범용밀링, 보링기, 라우터</li><li>주변기기: 바이스, 콤프레샤, BT40·BT50 툴홀더와 공구, 보루방(드릴프레스), 집진기, 다운트랜스, 칩버켓 등</li><li>기계 본체가 아니어도 일괄 정리하실 때는 품목 목록과 사진을 함께 보내 주세요.</li></ul><h2>문의 시 알려 주실 것</h2><ul><li>제조사와 모델명, 호기, 제조연도(명판 사진)</li><li>컨트롤러(예: FANUC 0i-MC), 주요 옵션</li><li>현재 가동 여부와 상태, 소재지</li><li>전체 사진과 명판 사진, 가능하면 가동 영상</li></ul><h2>문의처</h2><div class="box"><b>${TEL}</b><br>충남 아산시 배방읍 휴대길 167, 101동 · 이메일 mohoro@naver.com</div><p>판매 중인 중고기계는 <a href="used-machines.html">중고 공작기계 판매 목록</a>에서 볼 수 있습니다.</p>` }));
+// 전체 상품 카탈로그
+const byKind = k => productPages.filter(p => p.kind === k).sort((a, b) => a.title.localeCompare(b.title, 'ko'));
+await wr('catalog.html', page({ path: 'catalog.html', title: `전체 상품 목록 ${itemsAll.length}종 | 화천이티씨`, desc: `화천이티씨 판매 상품 전체 ${itemsAll.length}종: 중고 공작기계, 화천 범용선반·밀링 부품, 주변기기.`, h1: `전체 상품 목록 (${itemsAll.length}종)`, crumbs: [['전체 상품', 'catalog.html']],
+  body: `<p class="lead">${DATE} 기준 판매 중인 전체 상품입니다. 매일 자동 갱신됩니다.</p>${['used', 'lathe', 'mill', 'acc'].map(k => `<h2>${kindLabel[k]} (${byKind(k).length}종)</h2><ul class="rel">${byKind(k).map(p => `<li><a href="p-${p.id}.html">${esc(p.title)}</a>${p.price >= 1000 ? ' · ' + won(p.price) : ''}</li>`).join('')}</ul>`).join('')}` }));
+
+// 정적 페이지 상단 메뉴 통일
+for (const f of ['faq.html', 'guide.html', 'guides.html', 'returns.html', 'guide-brake.html', 'guide-steady-rest.html', 'guide-thread-parts.html', 'guide-safety-cover.html', 'guide-lathe-tips.html', 'guide-milling-tips.html']) {
+  try { const t = await fs.readFile(`${OUT}/${f}`, 'utf8'); const n = t.replace(/<header class="top">[\s\S]*?<\/header>/, nav); if (n !== t) await fs.writeFile(`${OUT}/${f}`, n); } catch { /* 없는 파일 */ }
+}
+
+// 구글 판매자 센터 피드 (전체 상품: 신품 부품 + 중고기계 + 주변기기)
 const clean = s => String(s).replace(/[\t\r\n]+/g, ' ').trim();
-const hdr = ['id', 'title', 'description', 'link', 'image_link', 'availability', 'price', 'condition', 'brand', 'identifier_exists', 'product_type', 'google_product_category'];
-const feedRows = feedItems.map(i => {
-  const pg = i.lathe ? 'lathe-parts.html' : 'milling-parts.html';
-  const kind = (i.lathe && i.mill) ? '범용선반·범용밀링' : (i.lathe ? '범용선반' : '범용밀링');
+const hdr = ['id', 'title', 'description', 'link', 'image_link', 'additional_image_link', 'availability', 'price', 'condition', 'brand', 'mpn', 'identifier_exists', 'product_type', 'product_highlight', 'custom_label_0'];
+const feedRows = [];
+for (const i of itemsAll) {
+  const e = E(i), k = kindOf(i), c = cond(i);
+  const imgsF = (e.images && e.images.length ? e.images : (images[i.id] ? [images[i.id].replace(/\?type=.*$/, '')] : []));
+  if (i.price < 1000 || !imgsF.length) continue;
+  const brand = brandOf(i) || '화천이티씨', model = modelOfItem(i);
+  const yr = e.year || (i.name.match(/((?:19|20)\d\d)년/) || [])[1];
   const t = clean(i.title).slice(0, 150);
-  const d = clean(`${t}. 화천기계 ${kind} A/S 부품. 모델과 호기에 맞는지 기계 명판 사진으로 확인해 드립니다. 문의 ${TEL}`);
-  return [`hc-${i.id}`, t, d, `${BASE}${pg}#p${i.id}`, images[i.id].replace(/\?type=.*$/, ''), 'in_stock', `${i.price} KRW`, 'new', '화천이티씨', 'no', `공작기계 부품 > ${kind}`, ''];
-});
-await wr('feed.tsv', [hdr.join('\t'), ...feedRows.map(r => r.join('\t'))].join('\n'));
+  const lead = c === 'used' ? `${t}. 중고${yr ? ' ' + yr + '년식' : ''} 공작기계·장비입니다.` : k === 'lathe' ? `${t}. 화천기계 범용선반 A/S 부품입니다.` : k === 'mill' ? `${t}. 화천기계 범용밀링 A/S 부품입니다.` : `${t}. 공작기계 주변기기입니다.`;
+  const d = clean(`${lead} ${(e.text || '').replace(/\s+/g, ' ').slice(0, 600)} 문의 ${TEL}`).slice(0, 4900);
+  const hl = [c === 'used' ? `중고${yr ? ' ' + yr + '년식' : ''}` : '신품', ...(e.specs || []).slice(0, 4).map(([a, b]) => `${a}: ${b}`.slice(0, 140)), '충남 아산 화천이티씨 041-552-5147'].slice(0, 6);
+  const ptype = c === 'used' ? `중고 공작기계 > ${i.group}` : k === 'acc' ? `공작기계 주변기기 > ${i.group}` : `공작기계 부품 > ${k === 'lathe' ? '범용선반' : '범용밀링'}`;
+  feedRows.push([`hc-${i.id}`, t, d, `${BASE}p-${i.id}.html`, imgsF[0], imgsF.slice(1, 6).join(','), 'in_stock', `${i.price} KRW`, c, brand, model || '', 'no', ptype, hl.join('|'), c === 'used' ? 'used' : k]);
+}
+await wr('feed.tsv', [hdr.join('\t'), ...feedRows.map(r => r.map(clean).join('\t'))].join('\n'));
 
-// 사이트맵 (lastmod 갱신)
-const pages = ['', 'lathe-parts.html', 'milling-parts.html', 'models.html', 'used-machines.html', 'accessories.html', 'faq.html', 'guide.html', 'guides.html', 'returns.html',
-  ...models.map(x => `model-${x.toLowerCase()}.html`), 'guide-brake.html', 'guide-steady-rest.html', 'guide-thread-parts.html', 'guide-safety-cover.html', 'guide-lathe-tips.html', 'guide-milling-tips.html'];
-await wr('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(p => `<url><loc>${BASE}${p}</loc><lastmod>${DATE}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+// 사이트맵
+const staticPages = ['', 'lathe-parts.html', 'milling-parts.html', 'models.html', 'used-machines.html', 'used-machining-centers.html', 'used-lathes.html', 'used-milling.html', 'accessories.html', 'catalog.html', 'sell-machines.html', 'faq.html', 'guide.html', 'guides.html', 'returns.html',
+  ...models.map(x => `model-${x.toLowerCase()}.html`), 'guide-brake.html', 'guide-steady-rest.html', 'guide-thread-parts.html', 'guide-safety-cover.html', 'guide-lathe-tips.html', 'guide-milling-tips.html',
+  'used-doosan.html', 'used-hwacheon.html', 'used-wia.html'];
+const allUrls = [...staticPages, ...productPages.map(p => `p-${p.id}.html`)];
+const existing = []; for (const p of allUrls) { if (p === '') { existing.push(p); continue; } try { await fs.access(`${OUT}/${p}`); existing.push(p); } catch { /* 없는 허브 제외 */ } }
+await wr('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${existing.map(p => `<url><loc>${BASE}${p}</loc><lastmod>${DATE}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+await wr('indexnow-urls.json', JSON.stringify(existing.map(p => BASE + p)));
 
-console.log(JSON.stringify({ products: rows.length, latheAll: latheAll.length, millAll: millAll.length, used: usedItems.length, acc: accItems.length, feed: feedRows.length, date: DATE }));
+// llms.txt
+await wr('llms.txt', `# 화천이티씨\n> 화천기계 범용선반·범용밀링 A/S 부품 판매, 중고 공작기계(머시닝센터·CNC선반·선반·밀링) 판매·매입, 공작기계 수리 (충남 아산). 문의 ${TEL}\n\n- 스마트스토어: ${STORE}\n- 주소: 충남 아산시 배방읍 휴대길 167, 101동\n- 전체 상품 목록: ${BASE}catalog.html\n- 갱신일: ${DATE}\n\n## 주요 페이지\n- [중고 머시닝센터](${BASE}used-machining-centers.html)\n- [중고 선반(CNC선반·범용선반)](${BASE}used-lathes.html)\n- [중고 밀링·보링·기타](${BASE}used-milling.html)\n- [중고 공작기계 매입 문의](${BASE}sell-machines.html)\n- [화천 범용선반 부품](${BASE}lathe-parts.html)\n- [화천 범용밀링 부품](${BASE}milling-parts.html)\n- [모델별 부품 HL380~HL950](${BASE}models.html)\n- [공작기계 주변기기](${BASE}accessories.html)\n- [자주 묻는 질문](${BASE}faq.html)\n- [주문 가이드](${BASE}guide.html)\n- [배송·반품·교환](${BASE}returns.html)\n\n## 상품 페이지\n${productPages.map(p => `- [${p.title}](${BASE}p-${p.id}.html)`).join('\n')}\n`);
+
+console.log(JSON.stringify({ products: rows.length, pages: productPages.length, latheAll: latheAll.length, millAll: millAll.length, used: usedItems.length, acc: accItems.length, feed: feedRows.length, urls: existing.length, date: DATE }));
