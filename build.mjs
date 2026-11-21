@@ -4,7 +4,7 @@
 import fs from 'node:fs/promises';
 
 const SRC = 'https://chatbot-tawny-six-65.vercel.app/api/sync-products';
-const BASE = 'https://psk5147-bot.github.io/hwacheon-parts/';
+const BASE = 'https://hwacheonetc.com/';
 const STORE = 'https://smartstore.naver.com/hwacheonetc';
 const TEL = '화천이티씨 041-552-5147 / 모바일 010-5424-6147';
 const OUT = process.env.OUT_DIR || '.';
