@@ -132,7 +132,7 @@ const short = i => i.title.replace(/화천기계|화천|범용선반|A\/S 부품
 const rowsM = models.map(m => { const l = latheAll.filter(i => modelOf(i.name).includes(m)); return `<tr><th>${m}</th><td>${l.length ? l.map(i => `<a href="lathe-parts.html#p${i.id}">${esc(short(i))}</a> (${priceText(i)})`).join('<br>') : '모델 지정 부품은 문의해 주세요'}</td></tr>`; }).join('');
 await wr('models.html', page({ path: 'models.html', title: '화천 범용선반 모델별 부품 HL380 HL460 HL580 HL720 HL950 - 화천이티씨',
   desc: '화천 범용선반 HL380, HL460, HL580, HL720, HL950 모델별 A/S 부품 목록: 체인지기어, 방진구, 리드스크류, 안전커버 등.',
-  h1: '화천 범용선반 모델별 부품 (HL380·HL460·HL580·HL720·HL950)', crumbs: [['모델별 부품', 'models.html']],
+  h1: '화천 범용선반 모델별 부품 (HL380·​HL460·​HL580·​HL720·​HL950)', crumbs: [['모델별 부품', 'models.html']],
   body: `<p class="lead">상품명에 모델이 명시된 부품을 모델별로 모았습니다. 같은 부품이라도 호기·연식에 따라 규격이 다를 수 있으니, 주문 전에 기계 명판 사진을 보내 주시면 확인해 드립니다.</p><div class="box">모델별 상세 페이지: ${models.map(x => `<a href="model-${x.toLowerCase()}.html">${x}</a>`).join(' · ')} · <a href="guide.html">주문 가이드</a></div><table><thead><tr><th>모델</th><th>모델 지정 부품</th></tr></thead><tbody>${rowsM}</tbody></table><h2>모델에 관계없이 쓰는 공용 부품</h2><div class="grid">${common.map(card).join('')}</div>` }));
 for (const m of models) {
   const list = latheAll.filter(i => modelOf(i.name).includes(m));
