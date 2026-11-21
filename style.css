@@ -40,3 +40,8 @@ ul.rel{line-height:1.9;padding-left:18px}
 
 .callbar{position:fixed;right:14px;bottom:14px;z-index:50;background:#1a56db;color:#fff;padding:12px 18px;border-radius:28px;font-weight:700;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.25)}
 @media(max-width:600px){.callbar{left:14px;right:14px;text-align:center}}
+html,body{max-width:100%;overflow-x:hidden}
+h1,h2,h3,td,th,.box,.card{overflow-wrap:anywhere;word-break:keep-all}
+h1{word-break:normal;overflow-wrap:anywhere}
+table{table-layout:auto}
+@media(max-width:640px){h1{font-size:22px}h2{font-size:18px}th,td{padding:8px 8px;font-size:14px}main{padding:20px 14px 70px}header.top .in{padding:12px 14px;gap:8px 16px}}
