@@ -15,7 +15,11 @@ const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(
 const won = p => (p < 1000 ? '가격 문의' : p.toLocaleString('ko-KR') + '원');
 const slug = s => s.replace(/[^\w가-힣]+/g, '-').replace(/^-|-$/g, '');
 const norm = t => String(t).replace(/20\d\d-\d\d-\d\d/g, "D");
+const GTAG = `<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10992718426"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-10992718426');</script>`;
+const CALLBAR = `<a class="callbar" href="tel:0415525147" data-ev="phone_click">☎ 전화 문의 041-552-5147</a><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(!a)return;var h=a.getAttribute('href')||'';if(h.indexOf('tel:')===0){gtag('event','phone_click',{page:location.pathname});}else if(h.indexOf('smartstore.naver.com')>-1){gtag('event','smartstore_click',{page:location.pathname});}else if(h.indexOf('mailto:')===0){gtag('event','email_click',{page:location.pathname});}});</script>`;
+const inject = (f, t) => (f.endsWith('.html') && !t.includes('AW-10992718426')) ? t.replace('</head>', GTAG + '</head>').replace('</body>', CALLBAR + '</body>') : t;
 const wr = async (f, t) => {
+  t = inject(f, t);
   try { const old = await fs.readFile(`${OUT}/${f}`, "utf8"); if (norm(old) === norm(t)) return; } catch { /* 새 파일 */ }
   await fs.writeFile(`${OUT}/${f}`, t);
 };
