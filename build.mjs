@@ -177,6 +177,7 @@ const guideOf = n => /브레이크|마스터실린더|캘리퍼/.test(n) ? ['gui
 const brandOf = i => (E(i).brand || (/두산/.test(i.name) ? '두산' : /화천/.test(i.name) ? '화천기계' : /위아|WIA/.test(i.name) ? '위아' : '')) || '';
 const modelOfItem = i => { const sp = E(i).specs || []; const m = sp.find(([k]) => /^모델명$|^모델$/.test(k)); return m ? m[1] : null; };
 const bodyText = t => {
+  t = String(t || '').replace(/구매자\s*차량\s*상차/g, '상차');
   const out = []; let list = [];
   const flush = () => { if (list.length) { out.push(`<ul>${list.join('')}</ul>`); list = []; } };
   for (const raw of String(t || '').split('\n')) {
@@ -251,7 +252,7 @@ for (const f of ['faq.html', 'guide.html', 'guides.html', 'returns.html', 'guide
 }
 
 // 구글 판매자 센터 피드 (전체 상품: 신품 부품 + 중고기계 + 주변기기)
-const cleanDesc = t => String(t || '').replace(/(?:(?:가격|금액|개당)\s*[:：]?\s*)?[\d,]+\s*(?:만원|원)?\s*\(?\s*vat\s*별도가?\s*\)?/gi, ' ').replace(/(문의[:：]?\s*)?화천이티씨\s*041-552-5147\s*\/\s*모바일\s*010-5424-6147/g, ' ').replace(/\s+/g, ' ').trim();
+const cleanDesc = t => String(t || '').replace(/구매자\s*차량\s*상차/g, '상차').replace(/(?:(?:가격|금액|개당)\s*[:：]?\s*)?[\d,]+\s*(?:만원|원)?\s*\(?\s*vat\s*별도가?\s*\)?/gi, ' ').replace(/(문의[:：]?\s*)?화천이티씨\s*041-552-5147\s*\/\s*모바일\s*010-5424-6147/g, ' ').replace(/\s+/g, ' ').trim();
 const clean = s => String(s).replace(/[\t\r\n]+/g, ' ').trim();
 const hdr = ['id', 'title', 'description', 'link', 'image_link', 'additional_image_link', 'availability', 'price', 'condition', 'brand', 'mpn', 'identifier_exists', 'product_type', 'product_highlight', 'custom_label_0'];
 const feedRows = [];
