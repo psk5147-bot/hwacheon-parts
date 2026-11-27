@@ -40,6 +40,7 @@ let images = {};
 try { images = JSON.parse(await fs.readFile(`${OUT}/images.json`, 'utf8')); } catch { images = {}; }
 let enrich = {};
 try { for (const e of JSON.parse(await fs.readFile(`${OUT}/data/products.json`, 'utf8'))) enrich[e.id] = e; } catch { enrich = {}; }
+let feedImgOverride = {}; try { feedImgOverride = JSON.parse(await fs.readFile(`${OUT}/data/feed-image-overrides.json`, 'utf8')); } catch { feedImgOverride = {}; } // 머천트센터 500x500 미만 대표이미지 대체
 
 async function ensureImage(id, url) {
   if (images[id]) return;
@@ -258,7 +259,9 @@ const hdr = ['id', 'title', 'description', 'link', 'image_link', 'additional_ima
 const feedRows = [];
 for (const i of itemsAll) {
   const e = E(i), k = kindOf(i), c = cond(i);
-  const imgsF = (e.images && e.images.length ? e.images : (images[i.id] ? [images[i.id].replace(/\?type=.*$/, '')] : []));
+  const imgsF0 = (e.images && e.images.length ? e.images : (images[i.id] ? [images[i.id].replace(/\?type=.*$/, '')] : []));
+  const ov = feedImgOverride[i.id];
+  const imgsF = ov ? [ov, ...imgsF0.filter(u => u !== ov)] : imgsF0;
   if (i.price < 1000 || !imgsF.length) continue;
   const brand = brandOf(i) || '화천이티씨', model = modelOfItem(i);
   const yr = e.year || (i.name.match(/((?:19|20)\d\d)년/) || [])[1];
