@@ -1,0 +1,789 @@
+{
+ "10131129901": {
+  "title": "Doosan VM750 Vertical Machining Center (BT50)",
+  "type": "Vertical Machining Center",
+  "brand": "Doosan",
+  "specs": [
+   [
+    "Maker",
+    "Doosan Infracore (Korea)"
+   ],
+   [
+    "Model",
+    "VM750"
+   ],
+   [
+    "Spindle",
+    "BT50"
+   ]
+  ]
+ },
+ "11606315717": {
+  "title": "Hwacheon VESTA-2000 Vertical Machining Center, 2017 (with tooling)",
+  "type": "Vertical Machining Center",
+  "brand": "Hwacheon",
+  "year": "2017",
+  "specs": [
+   [
+    "Maker",
+    "Hwacheon Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "VESTA-2000"
+   ],
+   [
+    "Year",
+    "2017 (February)"
+   ],
+   [
+    "Size class",
+    "X travel approx. 2,000 mm class"
+   ],
+   [
+    "Included",
+    "Tooling set included"
+   ]
+  ]
+ },
+ "11677647754": {
+  "title": "Hwacheon VESTA-850B Vertical Machining Center, 2021, BT50 6,000 rpm",
+  "type": "Vertical Machining Center",
+  "brand": "Hwacheon",
+  "year": "2021",
+  "specs": [
+   [
+    "Maker",
+    "Hwacheon Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "VESTA-850B"
+   ],
+   [
+    "Year",
+    "2021"
+   ],
+   [
+    "Spindle",
+    "BT50, 6,000 rpm"
+   ]
+  ]
+ },
+ "13010888623": {
+  "title": "Kiheung KMB-U-6S Bed Type Milling Machine, 1995",
+  "type": "Bed Type Milling Machine",
+  "brand": "Kiheung",
+  "year": "1995",
+  "specs": [
+   [
+    "Maker",
+    "Kiheung Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "KMB-U-6S"
+   ],
+   [
+    "Year",
+    "1995"
+   ]
+  ]
+ },
+ "13185983429": {
+  "title": "Hwacheon CUTEX-160A CNC Lathe, 2013, 6-inch chuck, tailstock, chip conveyor",
+  "type": "CNC Lathe",
+  "brand": "Hwacheon",
+  "year": "2013",
+  "specs": [
+   [
+    "Maker",
+    "Hwacheon Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "CUTEX-160A"
+   ],
+   [
+    "Year",
+    "2013 (May)"
+   ],
+   [
+    "Chuck",
+    "6 inch"
+   ],
+   [
+    "Control",
+    "FANUC"
+   ],
+   [
+    "Power-on time",
+    "819 days"
+   ],
+   [
+    "Options",
+    "Tailstock, coil type chip conveyor"
+   ],
+   [
+    "Location",
+    "Asan, Chungnam (our yard)"
+   ]
+  ]
+ },
+ "13309782400": {
+  "title": "KOVA CNC Router 1250 x 2500 mm, 2020, ATC 10, BT30 24,000 rpm",
+  "type": "CNC Router",
+  "brand": "KOVA",
+  "year": "2020",
+  "specs": [
+   [
+    "Maker",
+    "KOVA (Korea)"
+   ],
+   [
+    "Year",
+    "2020 (October)"
+   ],
+   [
+    "Working area",
+    "1,250 x 2,500 x 200 mm"
+   ],
+   [
+    "Spindle",
+    "BT30, 24,000 rpm air cooled"
+   ],
+   [
+    "Control",
+    "CSCAM HX-LITE, 4-axis simultaneous"
+   ],
+   [
+    "Automation",
+    "ATC 10 tools, auto tool height sensor, auto lubrication"
+   ],
+   [
+    "Servo motors",
+    "Japanese servo motors on X/Y/Z/ATC"
+   ]
+  ]
+ },
+ "13475089613": {
+  "title": "Shibaura BPN-13 CNC Horizontal Boring Machine, 2001 (in operation)",
+  "type": "CNC Horizontal Boring Machine",
+  "brand": "Shibaura",
+  "year": "2001",
+  "specs": [
+   [
+    "Maker",
+    "Shibaura (Japan)"
+   ],
+   [
+    "Model",
+    "BPN-13"
+   ],
+   [
+    "Year",
+    "2001"
+   ],
+   [
+    "Spindle diameter",
+    "130 mm"
+   ],
+   [
+    "Max spindle speed",
+    "2,400 rpm"
+   ],
+   [
+    "Travel",
+    "X 2,000 / Y 2,000 / Z 1,200 / W (quill) 500 mm"
+   ],
+   [
+    "Table",
+    "1,800 x 1,600 mm"
+   ],
+   [
+    "Condition",
+    "Currently in production use"
+   ]
+  ]
+ },
+ "13669066630": {
+  "title": "Hwacheon SMART 400A-750 Conventional Lathe, 2018",
+  "type": "Conventional Lathe",
+  "brand": "Hwacheon",
+  "year": "2018",
+  "specs": [
+   [
+    "Maker",
+    "Hwacheon OEM (built by Yoonsung Mecatec, Korea)"
+   ],
+   [
+    "Model",
+    "SMART 400A-750"
+   ],
+   [
+    "Year",
+    "2018"
+   ],
+   [
+    "Max spindle speed",
+    "1,800 rpm"
+   ],
+   [
+    "Max chuck size",
+    "12 inch"
+   ],
+   [
+    "Power",
+    "5 kVA"
+   ],
+   [
+    "Weight",
+    "approx. 1,400 kg"
+   ],
+   [
+    "Options",
+    "Safety cover"
+   ]
+  ]
+ },
+ "13675162239": {
+  "title": "Doosan Mynx 6500 Vertical Machining Center, 2013, BT40 12,000 rpm",
+  "type": "Vertical Machining Center",
+  "brand": "Doosan",
+  "year": "2013",
+  "specs": [
+   [
+    "Maker",
+    "Doosan Infracore (Korea)"
+   ],
+   [
+    "Model",
+    "Mynx 6500"
+   ],
+   [
+    "Year",
+    "2013"
+   ],
+   [
+    "Spindle",
+    "BT40, 12,000 rpm"
+   ],
+   [
+    "Chip conveyor",
+    "Hinge belt, lift-up, right discharge"
+   ],
+   [
+    "Coolant pump",
+    "1.5 kW, 0.7 MPa, 30 L/min"
+   ],
+   [
+    "Condition",
+    "Currently in production use"
+   ],
+   [
+    "Location",
+    "Gumi, Gyeongbuk"
+   ]
+  ]
+ },
+ "13725319519": {
+  "title": "Kyungwon AS31 Screw Air Compressor 22 kW (30 HP), 2011, with air dryer and tank",
+  "type": "Screw Air Compressor",
+  "brand": "Kyungwon",
+  "year": "2011",
+  "specs": [
+   [
+    "Maker",
+    "Kyungwon Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "AS31 EEH"
+   ],
+   [
+    "Type",
+    "Oil injected screw compressor"
+   ],
+   [
+    "Power",
+    "22 kW, 380 V 3-phase 60 Hz"
+   ],
+   [
+    "Max pressure",
+    "0.85 MPa"
+   ],
+   [
+    "Year",
+    "2011"
+   ],
+   [
+    "Included",
+    "Air dryer and air tank"
+   ]
+  ]
+ },
+ "13760536587": {
+  "title": "Hwacheon ECOMIL-85VH Vertical Machining Center, 2002, BT50",
+  "type": "Vertical Machining Center",
+  "brand": "Hwacheon",
+  "year": "2002",
+  "specs": [
+   [
+    "Maker",
+    "Hwacheon Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "ECOMIL-85VH"
+   ],
+   [
+    "Year",
+    "2002"
+   ],
+   [
+    "Control",
+    "FANUC Series 16-M"
+   ],
+   [
+    "Spindle",
+    "BT50, 8,000 rpm"
+   ],
+   [
+    "ATC",
+    "24 tools"
+   ],
+   [
+    "Travel X/Y/Z",
+    "2,000 / 850 / 740 mm"
+   ],
+   [
+    "Table",
+    "2,140 x 850 mm"
+   ],
+   [
+    "Run hours",
+    "approx. 2,343 h"
+   ],
+   [
+    "Cutting hours",
+    "approx. 15,456 h"
+   ]
+  ]
+ },
+ "13760564326": {
+  "title": "Hwacheon SIRIUS-V1250 Vertical Machining Center, 2002",
+  "type": "Vertical Machining Center",
+  "brand": "Hwacheon",
+  "year": "2002",
+  "specs": [
+   [
+    "Maker",
+    "Hwacheon Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "SIRIUS-V1250"
+   ],
+   [
+    "Year",
+    "2002"
+   ],
+   [
+    "Control",
+    "FANUC Series 18i-M"
+   ],
+   [
+    "Run hours",
+    "approx. 10,776 h"
+   ],
+   [
+    "Cutting hours",
+    "approx. 51,887 h"
+   ],
+   [
+    "Note",
+    "Price shown is with ATC magazine repaired. As-is price (magazine not repaired) available on request."
+   ]
+  ]
+ },
+ "13796001087": {
+  "title": "Hwacheon HL460 x 1000 Conventional Lathe, 2002, 2-axis DRO, steady rest",
+  "type": "Conventional Lathe",
+  "brand": "Hwacheon",
+  "year": "2002",
+  "specs": [
+   [
+    "Maker",
+    "Hwacheon Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "HL460 x 1000"
+   ],
+   [
+    "Year",
+    "2002 (May)"
+   ],
+   [
+    "DRO",
+    "2 axis digital readout"
+   ],
+   [
+    "Options",
+    "Fixed steady rest"
+   ]
+  ]
+ },
+ "13798422683": {
+  "title": "Hwacheon SIRIUS-1250 Large Vertical Machining Center, 2011, FANUC 31i",
+  "type": "Vertical Machining Center",
+  "brand": "Hwacheon",
+  "year": "2011",
+  "specs": [
+   [
+    "Maker",
+    "Hwacheon Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "SIRIUS-1250"
+   ],
+   [
+    "Year",
+    "2011"
+   ],
+   [
+    "Control",
+    "FANUC 31i"
+   ],
+   [
+    "Spindle",
+    "8,000 rpm"
+   ]
+  ]
+ },
+ "13800375259": {
+  "title": "Hwacheon HMT-1100N Conventional Milling Machine, 2000, 3-axis DRO",
+  "type": "Conventional Milling Machine",
+  "brand": "Hwacheon",
+  "year": "2000",
+  "specs": [
+   [
+    "Maker",
+    "Hwacheon Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "HMT-1100N"
+   ],
+   [
+    "Year",
+    "2000"
+   ],
+   [
+    "Table feed",
+    "Ball screw"
+   ],
+   [
+    "DRO",
+    "3 axis (SONY LH51)"
+   ],
+   [
+    "Max spindle speed",
+    "3,600 rpm (60 Hz)"
+   ],
+   [
+    "Included",
+    "Vise and milling chuck"
+   ]
+  ]
+ },
+ "13828575609": {
+  "title": "Doosan ACE VM650 Vertical Machining Center, 2004, BT50",
+  "type": "Vertical Machining Center",
+  "brand": "Doosan",
+  "year": "2004",
+  "specs": [
+   [
+    "Maker",
+    "Doosan (Korea)"
+   ],
+   [
+    "Model",
+    "ACE VM650"
+   ],
+   [
+    "Year",
+    "2004 (November)"
+   ],
+   [
+    "Control",
+    "FANUC Series 18i-MB"
+   ],
+   [
+    "Spindle",
+    "BT50, 8,000 rpm"
+   ],
+   [
+    "Options",
+    "Lift-up chip conveyor"
+   ],
+   [
+    "Location",
+    "Daegu"
+   ]
+  ]
+ },
+ "13832651227": {
+  "title": "Doosan VM70 Vertical Machining Center, 2006, BT50 gear head",
+  "type": "Vertical Machining Center",
+  "brand": "Doosan",
+  "year": "2006",
+  "specs": [
+   [
+    "Maker",
+    "Doosan (Korea)"
+   ],
+   [
+    "Model",
+    "VM70"
+   ],
+   [
+    "Year",
+    "2006"
+   ],
+   [
+    "Spindle",
+    "BT50 gear type"
+   ],
+   [
+    "Control",
+    "FANUC Series 18i-MB"
+   ],
+   [
+    "Options",
+    "Data server"
+   ],
+   [
+    "Location",
+    "Dangjin, Chungnam"
+   ]
+  ]
+ },
+ "13853986918": {
+  "title": "Hyundai WIA VX500 Vertical Machining Center, 2006, 10,000 rpm",
+  "type": "Vertical Machining Center",
+  "brand": "Hyundai WIA",
+  "year": "2006",
+  "specs": [
+   [
+    "Maker",
+    "Hyundai WIA (Korea)"
+   ],
+   [
+    "Model",
+    "VX500"
+   ],
+   [
+    "Year",
+    "2006"
+   ],
+   [
+    "Control",
+    "FANUC 0i-MC"
+   ],
+   [
+    "Spindle speed",
+    "10,000 rpm"
+   ],
+   [
+    "Included",
+    "4 vises (no lift-up chip conveyor)"
+   ]
+  ]
+ },
+ "13872363332": {
+  "title": "Namsun NSM-T Universal Milling Machine, 2013, 4-axis DRO, power vise",
+  "type": "Universal Milling Machine",
+  "brand": "Namsun",
+  "year": "2013",
+  "specs": [
+   [
+    "Maker",
+    "Namsun Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "NSM-T"
+   ],
+   [
+    "Year",
+    "2013"
+   ],
+   [
+    "DRO",
+    "4 axis including quill"
+   ],
+   [
+    "Vise",
+    "MC Universal power vise MPV-160A"
+   ],
+   [
+    "Included",
+    "Horizontal adapter BT50 to BT40, tooling"
+   ],
+   [
+    "Condition",
+    "Excellent"
+   ]
+  ]
+ },
+ "13873613615": {
+  "title": "GOMT NARA 4311 Conventional Lathe, 2011, 2-axis DRO, steady rest",
+  "type": "Conventional Lathe",
+  "brand": "GOMT",
+  "year": "2011",
+  "specs": [
+   [
+    "Maker",
+    "GOMT (Korea)"
+   ],
+   [
+    "Model",
+    "NARA 4311"
+   ],
+   [
+    "Year",
+    "2011 (October)"
+   ],
+   [
+    "DRO",
+    "2 axis digital readout"
+   ],
+   [
+    "Included",
+    "Steady rest, tooling"
+   ],
+   [
+    "Condition",
+    "Good"
+   ]
+  ]
+ },
+ "13882277710": {
+  "title": "Hwacheon SIRIUS-550 Vertical Machining Center, 2008, 30-tool magazine",
+  "type": "Vertical Machining Center",
+  "brand": "Hwacheon",
+  "year": "2008",
+  "specs": [
+   [
+    "Maker",
+    "Hwacheon Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "SIRIUS-550"
+   ],
+   [
+    "Year",
+    "2008 (August)"
+   ],
+   [
+    "Control",
+    "FANUC Series 0i-MC"
+   ],
+   [
+    "ATC",
+    "30 tools"
+   ],
+   [
+    "Options",
+    "Lift-up chip conveyor"
+   ]
+  ]
+ },
+ "9708501753": {
+  "title": "Hwacheon VESTA-850B Heavy Duty Vertical Machining Center, 2011",
+  "type": "Vertical Machining Center",
+  "brand": "Hwacheon",
+  "year": "2011",
+  "specs": [
+   [
+    "Maker",
+    "Hwacheon Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "VESTA-850B"
+   ],
+   [
+    "Year",
+    "2011"
+   ],
+   [
+    "Type",
+    "Heavy duty cutting"
+   ]
+  ]
+ },
+ "13669117545": {
+  "title": "Tongil TIPL-4 400 x 750 Conventional Lathe, 1992, 4-jaw chuck",
+  "type": "Conventional Lathe",
+  "brand": "Tongil",
+  "year": "1992",
+  "specs": [
+   [
+    "Maker",
+    "Seil Heavy Industries (Tongil group, Korea)"
+   ],
+   [
+    "Model",
+    "TIPL-4 400 x 750"
+   ],
+   [
+    "Year",
+    "1992"
+   ],
+   [
+    "Included",
+    "4-jaw chuck"
+   ],
+   [
+    "Note",
+    "Used in a school training workshop"
+   ]
+  ]
+ },
+ "13800500861": {
+  "title": "Kyungwon AS15M Screw Air Compressor 11 kW (15 HP), 2008, dryer and tank integrated",
+  "type": "Screw Air Compressor",
+  "brand": "Kyungwon",
+  "year": "2008",
+  "specs": [
+   [
+    "Maker",
+    "Kyungwon Machinery (Korea)"
+   ],
+   [
+    "Model",
+    "AS15M (AS15MEF)"
+   ],
+   [
+    "Year",
+    "2008"
+   ],
+   [
+    "Type",
+    "Screw compressor, tank mounted with air dryer"
+   ],
+   [
+    "Power",
+    "11 kW (15 HP), 380 V 3-phase 60 Hz"
+   ],
+   [
+    "Max pressure",
+    "0.85 MPa"
+   ]
+  ]
+ }
+}

@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 20
       - name: Build pages from store product list
-        run: node build.mjs
+        run: node build.mjs && node build-en.mjs
       - name: Commit and push only when products changed
         run: |
           if git diff --quiet -I'20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]'; then
