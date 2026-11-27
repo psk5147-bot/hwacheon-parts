@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://psk5147-bot.github.io/hwacheon-parts/sitemap.xml
+Sitemap: https://hwacheonetc.com/sitemap.xml
