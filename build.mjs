@@ -134,7 +134,7 @@ const bar = (list, ord = []) => `<div class="box">바로가기: ${[...new Set(li
 await wr('lathe-parts.html', page({ path: 'lathe-parts.html', title: '화천 범용선반 부품 | 브레이크 마스터실린더 방진구 체인지기어 공구대 - 화천이티씨',
   desc: `화천 범용선반(HL380·HL460·HL580·HL720·HL950) A/S 부품 ${latheAll.length}종. 브레이크 마스터실린더, 방진구, 체인지기어, 공구대, 명판, 기어·이송 부품 가격과 구매 링크.`,
   h1: '화천 범용선반 A/S 부품', crumbs: [['화천 범용선반 부품', 'lathe-parts.html']], extraLD: [itemLD(latheAll)],
-  body: `<p class="lead">화천기계 범용선반(HL380, HL460, HL580, HL720, HL950 등)에 쓰는 A/S 부품입니다. 브레이크·마스터실린더, 방진구, 체인지기어, 공구대(툴포스트), 명판, 기어·이송 부품 ${latheAll.length}종을 판매합니다. 모델별로 찾으시려면 <a href="models.html">모델별 부품 안내</a>를 확인하세요.</p>${bar(latheAll, order.lathe)}${grouped(latheAll, order.lathe)}` }));
+  body: `<p class="lead">화천기계 범용선반(HL380, HL460, HL580, HL720, HL950 등)에 쓰는 A/S 부품입니다. 브레이크·마스터실린더, 방진구, 체인지기어, 공구대(툴포스트), 명판, 기어·이송 부품 ${latheAll.length}종을 판매합니다. 모델별로 찾으시려면 <a href="models.html">모델별 부품 안내</a>를 확인하세요.</p>${bar(latheAll, order.lathe)}${grouped(latheAll, order.lathe)}<div class="box">범용밀링 안전커버(아크릴 스핀들커버·칩커버)는 <a href="milling-parts.html">범용밀링 부품</a> 페이지에 있습니다. 안전커버 고르는 법은 <a href="guide-safety-cover.html">안전커버 가이드</a>를 참고하세요.</div>` }));
 
 await wr('milling-parts.html', page({ path: 'milling-parts.html', title: '화천 범용밀링 부품 | 헤드 모터 퀼 이송핸들 브레이크 - 화천이티씨',
   desc: `화천 범용밀링 A/S 부품 ${millAll.length}종. 헤드, 퀼 자동이송, 모터, 풀리, 이송핸들, 브레이크, 기어 부품 가격과 구매 링크.`,
