@@ -71,9 +71,9 @@ function classify(rows) {
   const both = items.filter(i => !i.used && /범용선반 밀링/.test(i.name)).map(i => ({ ...i, group: '안전·절삭유·기타' }));
   const millItems = items.filter(i => !i.used && i.mill).map(i => ({ ...i, group: mg(i.name) }));
   const usedItems = [...new Map(items.filter(i => i.used).map(i => [i.id, i])).values()].map(i => ({
-    ...i, group: (/^(중고\s*)?(BT\d+\s*공구|연마바이스|TAKEDA|DAFEI|SMC|제일\s*DSP)/.test(i.name) || /툴홀더|BV-\d/.test(i.name)) ? '바이스·공구' : /콤프레|컴프레|트랜스|KVA|집진기|Fluke|톱기계/.test(i.name) ? '설비·부대장비'
+    ...i, group: (/^(중고\s*)?(BT\d+\s*공구|연마바이스|TAKEDA|DAFEI|SMC|제일\s*DSP)/.test(i.name) || /툴홀더|BV-\d|토크렌치|Fluke|얼라인먼트/.test(i.name)) ? '공구·바이스·측정기' : /콤프레|컴프레|트랜스|KVA|집진기|드라이어/.test(i.name) ? '설비·부대장비'
       : /머시닝|MCT|MYNX|Mynx|VESTA|SIRIUS|VM\d|ECOMIL|UT360|REVO/.test(i.name) ? '머시닝센터' : /선반|CUTEX/.test(i.name) ? '선반'
-      : /밀링|HMT|KMB|SIMPLEX|라우터|보링/.test(i.name) ? '밀링·보링·기타 가공기' : '설비·부대장비' }));
+      : /밀링|HMT|KMB|SIMPLEX|라우터|보링|탭핑|톱기계|밴드쏘|밴스쏘/.test(i.name) ? '밀링·보링·기타 가공기' : '설비·부대장비' }));
   const usedIds = new Set(usedItems.map(i => i.id));
   const catIds = new Set([...latheItems, ...both, ...millItems].map(i => i.id));
   const accItems = items.filter(i => !usedIds.has(i.id) && !catIds.has(i.id) && !i.used).map(i => ({
@@ -150,7 +150,7 @@ for (const m of models) {
 await wr('used-machines.html', page({ path: 'used-machines.html', title: '중고 공작기계 중고 머시닝센터 중고선반 중고밀링 판매 | 화천이티씨',
   desc: `중고 머시닝센터(두산·화천·유지인트·하스), 중고 선반, 중고 밀링 등 ${usedItems.length}종 판매·매입. 연식·사양·가격과 스마트스토어 링크.`,
   h1: '중고 공작기계 판매·매입', crumbs: [['중고기계', 'used-machines.html']], extraLD: [itemLD(usedItems)],
-  body: `<p class="lead">두산·화천·유지인트·하스 등 중고 머시닝센터와 중고 선반·밀링, 부대 설비를 판매하고 중고 공작기계 매입도 합니다(${DATE} 기준 ${usedItems.length}종, 매일 자동 갱신). 매물은 한 대씩이라 판매 완료된 것은 목록에서 빠집니다. 중고기계는 착불배송 또는 직접 방문(상차도) 조건입니다.</p>${grouped(usedItems, ['머시닝센터', '선반', '밀링·보링·기타 가공기', '설비·부대장비', '바이스·공구'])}<h2>중고 공작기계 매입</h2><div class="box">사용 중이거나 유휴 상태인 중고 공작기계(머시닝센터, 선반, 밀링 등) 매입 문의를 받습니다. 기종, 연식, 현재 상태 사진을 보내 주세요.<br><b>${TEL}</b></div>` }));
+  body: `<p class="lead">두산·화천·유지인트·하스 등 중고 머시닝센터와 중고 선반·밀링, 부대 설비를 판매하고 중고 공작기계 매입도 합니다(${DATE} 기준 ${usedItems.length}종, 매일 자동 갱신). 매물은 한 대씩이라 판매 완료된 것은 목록에서 빠집니다. 중고기계는 착불배송 또는 직접 방문(상차도) 조건입니다.</p>${grouped(usedItems, ['머시닝센터', '선반', '밀링·보링·기타 가공기', '설비·부대장비', '공구·바이스·측정기'])}<h2>중고 공작기계 매입</h2><div class="box">사용 중이거나 유휴 상태인 중고 공작기계(머시닝센터, 선반, 밀링 등) 매입 문의를 받습니다. 기종, 연식, 현재 상태 사진을 보내 주세요.<br><b>${TEL}</b></div>` }));
 
 // 주변기기
 await wr('accessories.html', page({ path: 'accessories.html', title: '공작기계 주변기기 | 절삭유 관리 오일스키머 집진기 칩버켓 터치프로브 - 화천이티씨',
