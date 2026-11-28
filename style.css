@@ -45,3 +45,10 @@ h1,h2,h3,td,th,.box,.card{overflow-wrap:anywhere;word-break:keep-all}
 h1{word-break:normal;overflow-wrap:anywhere}
 table{table-layout:auto}
 @media(max-width:640px){h1{font-size:22px}h2{font-size:18px}th,td{padding:8px 8px;font-size:14px}main{padding:20px 14px 70px}header.top .in{padding:12px 14px;gap:8px 16px}}
+/* 2026-11-28: 신뢰 지표, 오시는 길, 부가세 표기 */
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0 6px}.trust div{background:#fff;border:1px solid #dfe5f1;border-radius:12px;padding:14px;text-align:center}.trust b{display:block;font-size:22px;color:#16246b}.trust span{font-size:13px;color:#5a667d}
+.visit{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.visit>div{background:#fff;border:1px solid #dfe5f1;border-radius:12px;padding:16px 18px}.visit .btn{margin-top:8px}
+.btn.alt{background:#fff;color:#1f3fae;border:1px solid #1f3fae}.price small.vat{font-size:12px;font-weight:400;color:#6a768d}.sns a{margin-right:4px}
+@media(max-width:640px){header.top .in{gap:8px 16px;padding:10px 14px}header.top a{font-size:14px}h1{font-size:23px}main{padding:18px 14px 70px}}
+footer{padding-bottom:84px}
+@media(max-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.p .b{padding:9px 10px 11px;gap:5px}.p h3{font-size:13px;line-height:1.4}.p .price{font-size:15px}.p .btn{font-size:12px;padding:7px 6px}.price small.vat{display:block}}
