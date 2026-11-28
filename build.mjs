@@ -57,7 +57,7 @@ async function ensureImage(id, url) {
 function classify(rows) {
   const items = rows.map(p => {
     const id = (p.url.match(/products\/(\d+)/) || [])[1];
-    const used = /\[중고\]|년식|중고/.test(p.name) && !/신품|미개봉/.test(p.name);
+    const used = /\[중고\]|년식|중고|일괄판매|일괄매각/.test(p.name) && !/신품|미개봉/.test(p.name);
     const lathe = /범용선반|선반/.test(p.name) && /화천/.test(p.name);
     const mill = /범용밀링/.test(p.name) && /화천/.test(p.name);
     const title = p.name.replace(/\s*A\/S 부품 공작기계$/, ' A/S 부품').replace(/\s+공작기계$/, '').replace(/^\[중고\]\s*/, '').trim();
