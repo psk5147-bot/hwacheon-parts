@@ -71,8 +71,8 @@ function classify(rows) {
   const both = items.filter(i => !i.used && /범용선반 밀링/.test(i.name)).map(i => ({ ...i, group: '안전·절삭유·기타' }));
   const millItems = items.filter(i => !i.used && i.mill).map(i => ({ ...i, group: mg(i.name) }));
   const usedItems = [...new Map(items.filter(i => i.used).map(i => [i.id, i])).values()].map(i => ({
-    ...i, group: /바이스|BV-/.test(i.name) ? '바이스·공구' : /콤프레|컴프레|트랜스|KVA|집진기|Fluke|톱기계/.test(i.name) ? '설비·부대장비'
-      : /머시닝|MCT|MYNX|Mynx|VESTA|SIRIUS|VM\d|ECOMIL|UT360|REVO|BT50 공구/.test(i.name) ? '머시닝센터' : /선반|CUTEX/.test(i.name) ? '선반'
+    ...i, group: (/^(중고\s*)?(BT\d+\s*공구|연마바이스|TAKEDA|DAFEI|SMC|제일\s*DSP)/.test(i.name) || /툴홀더|BV-\d/.test(i.name)) ? '바이스·공구' : /콤프레|컴프레|트랜스|KVA|집진기|Fluke|톱기계/.test(i.name) ? '설비·부대장비'
+      : /머시닝|MCT|MYNX|Mynx|VESTA|SIRIUS|VM\d|ECOMIL|UT360|REVO/.test(i.name) ? '머시닝센터' : /선반|CUTEX/.test(i.name) ? '선반'
       : /밀링|HMT|KMB|SIMPLEX|라우터|보링/.test(i.name) ? '밀링·보링·기타 가공기' : '설비·부대장비' }));
   const usedIds = new Set(usedItems.map(i => i.id));
   const catIds = new Set([...latheItems, ...both, ...millItems].map(i => i.id));
