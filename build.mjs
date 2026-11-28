@@ -88,7 +88,7 @@ const orgLD = { '@context': 'https://schema.org', '@type': 'LocalBusiness', name
   address: { '@type': 'PostalAddress', streetAddress: '휴대길 167, 101동', addressLocality: '아산시 배방읍', addressRegion: '충청남도', addressCountry: 'KR' }, sameAs: [STORE], areaServed: 'KR' };
 const ld = o => `<script type="application/ld+json">${JSON.stringify(o)}</script>`;
 const nav = `<header class="top"><div class="in"><a class="brand" href="index.html">화천이티씨</a><a href="lathe-parts.html">범용선반 부품</a><a href="milling-parts.html">범용밀링 부품</a><a href="models.html">모델별 부품</a><a href="used-machines.html">중고기계</a><a href="accessories.html">주변기기</a><a href="sell-machines.html">매입 문의</a><a href="catalog.html">전체 상품</a><a href="faq.html">자주 묻는 질문</a></div></header>`;
-const foot = `<footer><div class="in"><b>화천이티씨</b> ((주)화천기계 신품판매 / 중고공작기계 매입·판매 / 부품·주변기기 판매 / 공작기계 수리)<br>${TEL}<br>충남 아산시 배방읍 휴대길 167, 101동 · 사업자등록번호 483-26-00262<br><a href="returns.html">배송·반품 안내</a> · <a href="${STORE}">스마트스토어 바로가기</a> · <a href="en/" hreflang="en">English (Used machines for export)</a> · 판매가는 부가세 포함 스마트스토어 표시가이며 ${DATE} 기준입니다. 가격과 재고는 스마트스토어에서 최종 확인해 주세요.</div></footer>`;
+const foot = `<footer><div class="in"><b>화천이티씨</b> (화천기계 범용선반·밀링 정품 A/S 부품 / 중고 공작기계 매매·매입 / 주변기기 판매·공작기계 수리)<br>${TEL} · mohoro@naver.com<br>대표 문형록 · 충남 아산시 배방읍 휴대길 167, 101동(아산매장) · 사업자등록번호 483-26-00262 · 통신판매업신고 제2025-충남아산-0595호<br><a href="returns.html">배송·반품 안내</a> · <a href="${STORE}">스마트스토어 바로가기</a> · <a href="en/" hreflang="en">English (Used machines for export)</a> · 판매가는 부가세 포함 스마트스토어 표시가이며 ${DATE} 기준입니다. 가격과 재고는 스마트스토어에서 최종 확인해 주세요.</div></footer>`;
 
 function page({ path, title, desc, h1, body, extraLD = [], crumbs = [] }) {
   const url = BASE + path;
